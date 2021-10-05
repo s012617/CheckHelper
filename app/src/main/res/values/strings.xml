@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">CheckHelper</string>
+    <string name="token">tokenKey</string>
+</resources>
