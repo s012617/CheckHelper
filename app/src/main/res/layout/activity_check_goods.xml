@@ -5,48 +5,66 @@
     android:id="@+id/constraintLayoutBase"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CheckGoods.CheckGoodsActivity">
+    android:background="#FFFFFF"
+    tools:context=".checkGoods.CheckGoodsActivity">
 
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
+        android:background="#FFFFFF"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/buttonBoxDelete"
+            style="@style/MyWidget.deleteButton"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="5dp"
             android:layout_weight="1"
-            android:text="刪除遠端資料庫"
-            android:textSize="10sp" />
+            android:text="刪除" />
 
         <Button
-            android:id="@+id/button2"
+            android:id="@+id/buttonDeleteRemote"
+            style="@style/MyWidget.deleteButton"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="10dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="5dp"
+            android:layout_weight="1"
+            android:text="全部刪除"
+            android:textSize="14dp" />
+
+        <Button
+            android:id="@+id/buttonSearchRemote"
+            style="@style/MyWidget.SearchButton"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="5dp"
             android:layout_weight="1"
             android:text="查詢" />
 
         <Button
-            android:id="@+id/button3"
+            android:id="@+id/buttonUpdateToRemote"
+            style="@style/MyWidget.UpdateButton"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="10dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
             android:layout_weight="1"
-            android:text="同步" />
+            android:text="同步"
+            android:textColor="#FFFFFF"
+            app:cornerRadius="5dp" />
+
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/linearLayout2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="#FFFFFF"
         android:orientation="horizontal"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
@@ -60,29 +78,39 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:backgroundTint="#656565"
             android:ems="10"
             android:hint="門市"
             android:imeOptions="actionNext"
-            android:inputType="textShortMessage|number|text"
+            android:maxLines="10"
             android:minHeight="48dp"
-            android:text="001" />
+            android:singleLine="true"
+            android:text="0099"
+            android:textColor="#000000"
+            android:textColorHint="#818181" />
 
         <EditText
             android:id="@+id/editTextCheckDate"
             android:layout_width="0dp"
             android:layout_height="48dp"
             android:layout_weight="1"
-            android:ems="10"
+            android:backgroundTint="#656565"
+            android:editable="false"
+            android:ems="8"
             android:hint="日期"
             android:imeOptions="actionNext"
             android:inputType="date"
-            android:text="20211001" />
+            android:maxLength="8"
+            android:text="20211001"
+            android:textColor="#000000"
+            android:textColorHint="#818181" />
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/linearLayout3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="#FFFFFF"
         android:orientation="horizontal"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
@@ -94,35 +122,81 @@
             android:id="@+id/editTextBoxNum"
             android:layout_width="50dp"
             android:layout_height="wrap_content"
+            android:backgroundTint="#656565"
             android:ems="10"
             android:hint="箱號"
             android:imeOptions="actionDone|actionGo|actionSearch|actionSend"
             android:inputType="numberDecimal"
-            android:minHeight="48dp" />
+            android:maxLength="3"
+            android:minHeight="48dp"
+            android:singleLine="true"
+            android:textColor="#000000"
+            android:textColorHint="#818181" />
 
-        <EditText
-            android:id="@+id/editTextBarcode"
+        <TextView
+            android:id="@+id/textViewForFocus"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="5"
-            android:ems="10"
-            android:hint="條碼"
-            android:imeOptions="actionDone|actionGo|actionSearch|actionSend"
-            android:inputType="textPersonName"
-            android:minHeight="48dp" />
+            android:layout_height="0dp"
+            android:text="TextView"
+            android:textColorHint="#818181" />
+
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <EditText
+                android:id="@+id/editTextBarcode"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#656565"
+                android:ems="10"
+                android:hint="條碼掃描"
+                android:imeOptions="actionDone|actionGo|actionSearch|actionSend"
+                android:inputType="textPersonName"
+                android:minHeight="48dp"
+                android:textColor="#000000"
+                android:textColorHint="#818181"
+                tools:ignore="DuplicateClickableBoundsCheck" />
+
+            <EditText
+                android:id="@+id/editTextType"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="條碼輸入"
+                android:imeOptions="actionNext"
+                android:inputType="textShortMessage"
+                android:nextFocusForward="@id/editTextType"
+                android:minHeight="48dp"
+                android:textColor="#000000"
+                android:textColorHint="#818181" />
+        </FrameLayout>
 
         <Button
-            android:id="@+id/button4"
+            android:id="@+id/buttonChange"
+            android:layout_width="48dp"
+            android:layout_height="wrap_content"
+            android:minWidth="10dp"
+            android:text="B" />
+
+        <Button
+            android:id="@+id/buttonGoToScan"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:backgroundTint="#434343"
+            android:drawableLeft="@android:drawable/ic_menu_camera"
             android:text="掃描"
-            android:textSize="12sp" />
+            android:textSize="12sp"
+            app:cornerRadius="10dp" />
+
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/linearLayout6"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="#FFFFFF"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -133,13 +207,15 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="10dp"
-        android:background="#EFF2F8"
+        android:background="#FBFCFF"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
         android:paddingBottom="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout6" />
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout6"
+        app:layout_constraintVertical_bias="1.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

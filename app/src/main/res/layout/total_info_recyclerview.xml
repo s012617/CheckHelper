@@ -3,11 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="#FFFFFF">
 
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:background="#FFFFFF"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -24,21 +26,24 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="門市" />
+                android:text="門市"
+                android:textColor="#000000" />
 
             <TextView
                 android:id="@+id/textView15"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="日期" />
+                android:text="日期"
+                android:textColor="#000000" />
 
             <TextView
                 android:id="@+id/textView16"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="總計數量" />
+                android:text="總計數量"
+                android:textColor="#000000" />
         </LinearLayout>
 
         <LinearLayout
@@ -51,25 +56,29 @@
                 android:id="@+id/textViewStore"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:textColor="#000000" />
 
             <TextView
                 android:id="@+id/textViewDate"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:textColor="#000000" />
 
             <TextView
                 android:id="@+id/textViewQuantity"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:textColor="#000000" />
         </LinearLayout>
 
         <FrameLayout
             android:id="@+id/frameLayoutWholeBox"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="#FFFFFF">
 
             <LinearLayout
                 android:id="@+id/linerLayoutInner"
@@ -89,20 +98,23 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="箱號" />
+                        android:text="箱號"
+                        android:textColor="#000000" />
 
                     <TextView
                         android:id="@+id/textView21"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="數量" />
+                        android:text="數量"
+                        android:textColor="#000000" />
                 </LinearLayout>
 
                 <FrameLayout
                     android:id="@+id/frameLayoutBox"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:background="#FFFFFF">
 
                 </FrameLayout>
 

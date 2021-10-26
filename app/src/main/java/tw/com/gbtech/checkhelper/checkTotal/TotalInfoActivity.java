@@ -13,7 +13,8 @@ import android.widget.FrameLayout;
 import java.util.ArrayList;
 import java.util.List;
 
-import tw.com.gbtech.checkhelper.CheckGoods.CheckGoodsActivity;
+import tw.com.gbtech.checkhelper.FunctionMenuActivity;
+import tw.com.gbtech.checkhelper.checkGoods.CheckGoodsActivity;
 import tw.com.gbtech.checkhelper.Entity.Check;
 import tw.com.gbtech.checkhelper.Util.SwipeHelper;
 import tw.com.gbtech.checkhelper.Util.Today;
@@ -31,15 +32,18 @@ public class TotalInfoActivity extends AppCompatActivity {
     FrameLayout frameLayoutWholeBox;
     Button buttonGoToCheckGoods;
     boolean showBoxActive = false;
+    List<TotalCheckForView> totalCheckForViewList;
+    DBHelper dbHelper;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        System.out.println("onCreate");
         setContentView(R.layout.activity_total_info);
 
         frameLayoutWholeBox = findViewById(R.id.frameLayoutWholeBox);
         recyclerViewTotalCheck = findViewById(R.id.recyclerViewTotalCheck);
         buttonGoToCheckGoods = findViewById(R.id.buttonGoToCheckGoods);
-        DBHelper dbHelper = new DBHelper(getApplicationContext());
+        dbHelper = new DBHelper(getApplicationContext());
 
         buttonGoToCheckGoods.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -49,21 +53,8 @@ public class TotalInfoActivity extends AppCompatActivity {
         });
 
 
-///寫入測試資料
-        dbHelper.getAppDatabase().checkDao().insertAll(
-                new Check(
-                "001001","1", Today.getDate(),"001",10, Today.getDate()),
-                new Check(
-                        "002002","1", Today.getDate(),"001",2, Today.getDate()),
-                new Check(
-                        "003003","1", Today.getDate(),"001",3, Today.getDate()),
-                new Check(
-                        "001001","2", Today.getDate(),"001",2, Today.getDate()),
-                new Check(
-                        "001001","3", Today.getDate(),"001",3, Today.getDate())
-        );
         totalChecks = dbHelper.getAppDatabase().checkDao().getTotalCheck();
-        List<TotalCheckForView> totalCheckForViewList = new ArrayList<TotalCheckForView>();
+        totalCheckForViewList = new ArrayList<TotalCheckForView>();
         for (TotalCheck dataSet:totalChecks
              ) {
             totalCheckForViewList.add(new TotalCheckForView(
@@ -72,8 +63,8 @@ public class TotalInfoActivity extends AppCompatActivity {
         }
 ///
 
-        totalInfoAdapter = new TotalInfoAdapter(totalCheckForViewList);
         recyclerViewTotalCheck.setLayoutManager(new LinearLayoutManager(this));
+        totalInfoAdapter = new TotalInfoAdapter(totalCheckForViewList);
         recyclerViewTotalCheck.setAdapter(totalInfoAdapter);
 
         //  實現拖移、左右滑動刪除的效果
@@ -83,19 +74,50 @@ public class TotalInfoActivity extends AppCompatActivity {
                 underlayButtons.add(new SwipeHelper.UnderlayButton("刪除",0, getResources().getColor(R.color.delete,viewHolder.itemView.getContext().getTheme()), new UnderlayButtonClickListener() {
                     @Override
                     public void onClick(int pos) {
+                        System.out.println(pos);
                         dbHelper.getAppDatabase().checkDao().deleteByStoreAndDate(
                                 totalCheckForViewList.get(pos).getStore(),totalCheckForViewList.get(pos).getDate());
                         totalCheckForViewList.remove(pos);
                         recyclerViewTotalCheck.getAdapter().notifyDataSetChanged();
 
+                        totalInfoAdapter = new TotalInfoAdapter(totalCheckForViewList);
+                        recyclerViewTotalCheck.setAdapter(totalInfoAdapter);
                     }
                 }));
             }
         };
     }
+    @Override
+    public void onResume() {
+        super.onResume();
+        buttonGoToCheckGoods.setEnabled(true);
+        totalChecks = dbHelper.getAppDatabase().checkDao().getTotalCheck();
+        totalCheckForViewList = new ArrayList<TotalCheckForView>();
+        for (TotalCheck dataSet:totalChecks
+        ) {
+            totalCheckForViewList.add(new TotalCheckForView(
+                    dataSet.getStore(),dataSet.getCheckDate(),dataSet.getQuantity(),dbHelper.getAppDatabase().checkDao().getTotalBoxCheck(dataSet.getStore(),dataSet.getCheckDate()))
+            );
+        }
+///
+
+        recyclerViewTotalCheck.setLayoutManager(new LinearLayoutManager(this));
+        totalInfoAdapter = new TotalInfoAdapter(totalCheckForViewList);
+        recyclerViewTotalCheck.setAdapter(totalInfoAdapter);
+
+
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
+    }
+
     void GoToCheckGoods(View v){
+        Button button = findViewById(R.id.buttonGoToCheckGoods);
+        button.setEnabled(false);
         Intent intent = new Intent();
-        intent.setClass(TotalInfoActivity.this, CheckGoodsActivity.class);
+        intent.setClass(this, CheckGoodsActivity.class);
         startActivity(intent);
         //TotalInfoActivity.this.finish();
     }

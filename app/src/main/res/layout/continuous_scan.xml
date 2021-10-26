@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.journeyapps.barcodescanner.DecoratedBarcodeView
+        android:id="@+id/barcode_scanner"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_above="@+id/buttonsLayout"
+        android:layout_alignParentTop="true">
+
+        <TextView
+            android:id="@+id/textViewHint"
+            android:layout_width="match_parent"
+            android:layout_height="606dp"
+            android:gravity="center"
+            android:text="請下方點擊掃描"
+            android:textAlignment="center"
+            android:textColor="#FF0000"
+            android:textSize="24sp" />
+
+        <Switch
+            android:id="@+id/switchFlashlight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minHeight="32dp"
+            android:text="閃光燈"
+            android:textColor="#FFFFFF"
+            android:textOff="關"
+            android:textOn="開" />
+
+    </com.journeyapps.barcodescanner.DecoratedBarcodeView>
+
+    <LinearLayout
+        android:id="@+id/buttonsLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textViewScanMessage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="20dp"
+            android:text="條碼"
+            android:textAlignment="textStart"
+            android:textColor="#FF0000"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/buttonScan"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:onClick="resume"
+            android:text="掃描"
+            android:textSize="18sp" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/barcodePreview"
+        android:layout_width="wrap_content"
+        android:layout_height="80dp"
+        android:layout_alignTop="@id/buttonsLayout"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        tools:visibility="invisible" />
+
+</RelativeLayout>

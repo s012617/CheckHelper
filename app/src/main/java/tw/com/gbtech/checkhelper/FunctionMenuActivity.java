@@ -5,10 +5,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 
+import tw.com.gbtech.checkhelper.Util.Delay;
 import tw.com.gbtech.checkhelper.checkTotal.TotalInfoActivity;
 
 public class FunctionMenuActivity extends AppCompatActivity implements View.OnClickListener {
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,8 +30,16 @@ public class FunctionMenuActivity extends AppCompatActivity implements View.OnCl
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.buttonGoToCheck:
+                Button button = findViewById(R.id.buttonGoToCheck);
+                button.setEnabled(false);
                 goToCheck();
                 break;
         }
+    }
+    @Override
+    protected void onResume(){
+        super.onResume();
+        Button button = findViewById(R.id.buttonGoToCheck);
+        button.setEnabled(true);
     }
 }

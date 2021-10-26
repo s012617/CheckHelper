@@ -13,7 +13,6 @@ import tw.com.gbtech.checkhelper.OkHttp;
 public class NeedAuth {
     Request request;
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
     public Call get(String tokenstring){
         OkHttpClient client = new OkHttp().client();
         request = new Request.Builder()

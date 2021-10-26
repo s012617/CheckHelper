@@ -3,12 +3,17 @@ package tw.com.gbtech.checkhelper;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
@@ -29,6 +34,7 @@ import tw.com.gbtech.checkhelper.Entity.TotalCheck;
 import tw.com.gbtech.checkhelper.Entity.User;
 import tw.com.gbtech.checkhelper.Response.LoginResponse;
 import tw.com.gbtech.checkhelper.Response.NeedAuthResponse;
+import tw.com.gbtech.checkhelper.scanner.ContinuousCaptureActivity;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
     EditText editTextID;
@@ -42,7 +48,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         Token.tokenString = getSharedPreferences(getString(R.string.token), Context.MODE_PRIVATE).getString(getString(R.string.token),"");
         if(!Token.tokenString.isEmpty()){
             textViewMsg.setText("驗證中...");
-            loading.setVisibility(View.VISIBLE);
+//            loading.setVisibility(View.VISIBLE);
             getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
                     WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
         }
@@ -55,7 +61,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     @Override
                     public void run() {
                         textViewMsg.setText("驗證失敗,請重新登入");
-                        loading.setVisibility(View.INVISIBLE);
+                  //      loading.setVisibility(View.INVISIBLE);
                         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                     }
                 });
@@ -70,7 +76,20 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     String body = response.body().string();
                     NeedAuthResponse needAuthResponse= new Gson().fromJson(body,NeedAuthResponse.class);
                     if(needAuthResponse.getStatus().matches("success")){
+                        Log.d("token", Token.tokenString);
+                        LoginActivity.this.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                if(msg == null){
+                                    //登入驗證成功
+                                    Intent intent = new Intent();
+                                    intent.setClass(LoginActivity.this,FunctionMenuActivity.class);
+                                    startActivity(intent);
+                                    LoginActivity.this.finish();
+                                }
 
+                            }
+                        });
                     }else{
                         msg = needAuthResponse.getErrorMessage();
                     }
@@ -78,16 +97,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 LoginActivity.this.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        if(msg == null){
-                            //登入驗證成功
-                            Intent intent = new Intent();
-                            intent.setClass(LoginActivity.this,FunctionMenuActivity.class);
-                            startActivity(intent);
-                            LoginActivity.this.finish();
-                        }
                         textViewMsg.setText(msg);
-
-                        loading.setVisibility(View.INVISIBLE);
+                        //loading.setVisibility(View.INVISIBLE);
                         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                     }
                 });
@@ -98,12 +109,16 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if(ContextCompat.checkSelfPermission(this, Manifest.permission.INTERNET) != PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(LoginActivity.this, new String[] { Manifest.permission.INTERNET },101);
+        }
+
         setContentView(R.layout.activity_login);
 
         editTextID = findViewById(R.id.editTextID);
         editTextPassword = findViewById(R.id.editTextPassword);
         textViewMsg = findViewById(R.id.textViewMsg);
-        loading = findViewById(R.id.progressBarLoading);
+        //loading = findViewById(R.id.progressBarLoading);
         findViewById(R.id.buttonLogin).setOnClickListener(this);
     }
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -141,40 +156,42 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
+
                 String msg;
                 if(response == null){
                     msg = "未知錯誤";
                 }else{
                     Gson gson = new Gson();
                     String body =response.body().string();
-                    System.out.println();
                     LoginResponse loginResponse = gson.fromJson(body, LoginResponse.class);
-                    if(loginResponse.getStatus().equals("success")){
+                    if(loginResponse.getStatus()!=null && loginResponse.getStatus().matches("success") ){
                         Token.tokenString = loginResponse.getToken();
+                        Log.d("token", Token.tokenString);
                         msg = null;
+                        LoginActivity.this.runOnUiThread(() -> {
+                                //登入驗證成功
+                            System.out.println("login success");
+                                SharedPreferences.Editor editor = getSharedPreferences(getString(R.string.token), Context.MODE_PRIVATE).edit();
+                                editor.remove(getString(R.string.token));
+                                editor.putString(getString(R.string.token), Token.tokenString);
+                                editor.apply();
+
+                                Intent intent = new Intent();
+                                intent.setClass(LoginActivity.this,FunctionMenuActivity.class);
+                                startActivity(intent);
+                                LoginActivity.this.finish();
+
+                        });
+
                     }else{
-                        msg = loginResponse.getErrorMessage();
+                        System.out.println("登入錯誤");
+                        System.out.println(response);
+                        msg = "錯誤: "+loginResponse.getErrorMessage();
                     }
                 }
-
-                LoginActivity.this.runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        if(msg == null){
-                            //登入驗證成功
-                            SharedPreferences.Editor editor = getSharedPreferences(getString(R.string.token), Context.MODE_PRIVATE).edit();
-                            editor.remove(getString(R.string.token));
-                            editor.putString(getString(R.string.token), Token.tokenString);
-                            editor.apply();
-
-                            Intent intent = new Intent();
-                            intent.setClass(LoginActivity.this,FunctionMenuActivity.class);
-                            startActivity(intent);
-                            LoginActivity.this.finish();
-                        }
-                        textViewMsg.setText(msg);
-                        view.setEnabled(true);
-                    }
+                LoginActivity.this.runOnUiThread(() -> {
+                    textViewMsg.setText(msg);
+                    view.setEnabled(true);
                 });
             }
         });

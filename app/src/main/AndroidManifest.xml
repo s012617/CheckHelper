@@ -3,17 +3,22 @@
     package="tw.com.gbtech.checkhelper">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
+    <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.FLASHLIGHT"/>
 
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/Theme.CheckHelper"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".CheckGoods.CheckGoodsActivity"
+            android:name=".checkGoods.CheckGoodsActivity"
             android:exported="true" />
         <activity
             android:name=".checkTotal.TotalInfoActivity"
@@ -21,6 +26,8 @@
         <activity
             android:name=".FunctionMenuActivity"
             android:exported="true" />
+        <activity android:name=".scanner.ContinuousCaptureActivity"
+            android:exported="true"/>
         <activity
             android:name=".LoginActivity"
             android:exported="true">

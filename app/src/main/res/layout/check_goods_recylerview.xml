@@ -20,6 +20,7 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="10dp"
             android:text="箱號"
+            android:textColor="#000000"
             android:textStyle="bold" />
 
         <TextView
@@ -27,6 +28,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="101"
+            android:textColor="#000000"
             android:textStyle="bold" />
 
     </LinearLayout>
@@ -45,19 +47,22 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="商品條碼" />
+            android:text="商品條碼"
+            android:textColor="#000000" />
 
         <TextView
             android:id="@+id/textView8"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="數量" />
+            android:text="數量"
+            android:textColor="#000000" />
 
         <TextView
             android:id="@+id/textView9"
             android:layout_width="48dp"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:textColor="#000000" />
 
     </LinearLayout>
 

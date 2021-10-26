@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#5169E3"
     tools:context=".LoginActivity">
 
     <EditText
@@ -11,24 +12,31 @@
         android:layout_width="0dp"
         android:layout_height="50dp"
         android:layout_marginStart="50dp"
-        android:layout_marginTop="180dp"
+        android:layout_marginTop="56dp"
         android:layout_marginEnd="50dp"
+        android:background="#3242AE"
         android:ems="10"
         android:hint="使用者"
         android:inputType="textPersonName"
+        android:textColor="@color/white"
+        android:textColorHint="#FFFFFF"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
     <EditText
         android:id="@+id/editTextPassword"
         android:layout_width="0dp"
         android:layout_height="50dp"
         android:layout_marginTop="40dp"
+        android:background="#3242AE"
         android:ems="10"
         android:hint="密碼"
         android:inputType="textPassword"
         android:minHeight="48dp"
+        android:textColor="@color/white"
+        android:textColorHint="#FFFFFF"
         app:layout_constraintEnd_toEndOf="@+id/editTextID"
         app:layout_constraintStart_toStartOf="@+id/editTextID"
         app:layout_constraintTop_toBottomOf="@+id/editTextID"
@@ -41,6 +49,7 @@
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
+        android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextPassword" />
@@ -50,18 +59,25 @@
         android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
+        android:backgroundTint="#FFFFFF"
         android:text="登入"
+        android:textColor="#178CF1"
+        android:textSize="18sp"
+        app:cornerRadius="15dp"
         app:layout_constraintEnd_toEndOf="@+id/editTextPassword"
         app:layout_constraintTop_toBottomOf="@+id/textViewMsg" />
 
-    <ProgressBar
-        android:id="@+id/progressBarLoading"
-        style="?android:attr/progressBarStyle"
-        android:layout_width="wrap_content"
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="128dp"
-        android:layout_marginTop="40dp"
-        app:layout_constraintStart_toStartOf="@+id/editTextPassword"
-        app:layout_constraintTop_toBottomOf="@+id/textViewMsg"
-        tools:visibility="invisible" />
+        android:layout_marginTop="110dp"
+        android:text="登入"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

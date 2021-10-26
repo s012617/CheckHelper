@@ -1,4 +1,4 @@
 <resources>
-    <string name="app_name">CheckHelper</string>
+    <string name="app_name">盤點小幫手</string>
     <string name="token">tokenKey</string>
 </resources>

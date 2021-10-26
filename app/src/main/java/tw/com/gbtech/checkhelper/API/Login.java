@@ -19,7 +19,6 @@ import tw.com.gbtech.checkhelper.OkHttp;
 public class Login {
     Request request;
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
     public Call doLogin(User user){
         OkHttpClient client = new OkHttp().client();
         request = new Request.Builder()

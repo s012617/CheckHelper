@@ -1,5 +1,6 @@
 package tw.com.gbtech.checkhelper.checkTotal;
 
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,6 +48,8 @@ public class TotalInfoAdapter extends RecyclerView.Adapter<TotalInfoAdapter.View
             linearLayout.setOrientation(LinearLayout.HORIZONTAL);
             textViewBoxNum = new TextView(holder.itemView.getContext());
             textViewQuantity = new TextView(holder.itemView.getContext());
+            textViewBoxNum.setTextColor(Color.BLACK);
+            textViewQuantity.setTextColor(Color.BLACK);
             linearLayout.addView(textViewBoxNum);
             linearLayout.addView(textViewQuantity);
             textViewBoxNum.setText(dataset.getBoxNum());
